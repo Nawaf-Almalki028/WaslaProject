@@ -24,7 +24,17 @@ Custom Bootstrap Styling Unified visual language across all components using: as
 UML Reference Architecture and flow visualized in: assets/uml.jpg
 
 4- Templates /templates
+<img width="1440" height="891" alt="image" src="https://github.com/user-attachments/assets/e7dd4b8d-f0b7-4e5f-a894-0691555a27fb" />
+<img width="1440" height="891" alt="image" src="https://github.com/user-attachments/assets/afa69cd4-629e-4565-999d-56b195864a7b" />
+<img width="1440" height="891" alt="image" src="https://github.com/user-attachments/assets/053cf7fd-4aac-4dea-989c-f4a3c2b1ac3a" />
+<img width="1440" height="891" alt="image" src="https://github.com/user-attachments/assets/348f3cda-1a17-41ff-8f00-98a0086e0c4e" />
+<img width="1440" height="891" alt="image" src="https://github.com/user-attachments/assets/01f71a80-9c06-4ff5-9e6d-089433b8db72" />
+<img width="1440" height="891" alt="image" src="https://github.com/user-attachments/assets/deb92ccb-80c2-4c81-a820-693ede336ce4" />
+<img width="1440" height="2673" alt="image" src="https://github.com/user-attachments/assets/2b3a73b8-a967-42f5-8e82-defc42395f3b" />
+<img width="1440" height="1138" alt="image" src="https://github.com/user-attachments/assets/9b0639c6-8fe6-4d50-9275-7d00c81c91d9" />
 
+5- UML
+<img width="1334" height="795" alt="image" src="https://github.com/user-attachments/assets/d90fb254-e5fb-4cd5-9b80-2bfa9068bff4" />
 
 As a visitor:
 I want to view the home page so I can understand the platform’s purpose and features.
