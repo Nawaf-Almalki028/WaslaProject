@@ -24,13 +24,10 @@ from .forms import SignUpForm, LoginForm, UserProfileForm, AccountSettingsForm,D
 
 
 class AuthView(View):
-    """
-    View موحد للمصادقة - يجمع Login, Signup, Password Reset
-    """
-    template_name = 'accounts/auth.html'
+    
+    template_name = 'auth.html'
     
     def get(self, request, tab='login'):
-        """عرض صفحة المصادقة مع التبويب المناسب"""
         if request.user.is_authenticated and tab != 'reset':
             return redirect('hackathons:dashboard')
         
@@ -40,7 +37,6 @@ class AuthView(View):
             'next': request.GET.get('next', ''),
         }
         
-        # إضافة النموذج المناسب حسب التبويب
         if tab == 'login':
             context['login_form'] = LoginForm()
         elif tab == 'signup':
@@ -49,7 +45,6 @@ class AuthView(View):
         return render(request, self.template_name, context)
     
     def post(self, request, tab='login'):
-        """معالجة بيانات النماذج"""
         action = request.POST.get('action', tab)
         
         if action == 'login':
@@ -62,23 +57,20 @@ class AuthView(View):
         return redirect('accounts:auth')
     
     def _handle_login(self, request):
-        """معالجة تسجيل الدخول"""
         form = LoginForm(request.POST)
         
         if form.is_valid():
             identifier = form.cleaned_data.get('identifier')
             password = form.cleaned_data.get('password')
             
-            # محاولة المصادقة
+            
             user = self._authenticate_user(request, identifier, password)
             
             if user:
-                # التحقق من تفعيل البريد
                 if not user.is_verified:
                     messages.warning(request, 'Please verify your email first.')
                     return redirect('accounts:resend_verification')
                 
-                # تسجيل الدخول
                 login(request, user)
                 user.update_last_activity()
                 
@@ -91,7 +83,6 @@ class AuthView(View):
         return self.get(request, tab='login')
     
     def _handle_signup(self, request):
-        """معالجة التسجيل"""
         form = SignUpForm(request.POST)
         
         if form.is_valid():
@@ -112,7 +103,6 @@ class AuthView(View):
         return render(request, self.template_name, context)
     
     def _handle_password_reset(self, request):
-        """معالجة إعادة تعيين كلمة المرور"""
         email = request.POST.get('email')
         
         if email:
@@ -133,11 +123,9 @@ class AuthView(View):
         return self.get(request, tab='reset')
     
     def _authenticate_user(self, request, identifier, password):
-        """محاولة المصادقة بالبريد أو اسم المستخدم"""
-        # محاولة بالبريد أولاً
         user = authenticate(request, username=identifier, password=password)
         
-        # إذا فشلت، محاولة باسم المستخدم
+    
         if not user and '@' not in identifier:
             try:
                 user_obj = User.objects.get(username=identifier)
@@ -148,7 +136,6 @@ class AuthView(View):
         return user
     
     def _send_verification_email(self, user, request):
-        """إرسال بريد التحقق"""
         verification_url = request.build_absolute_uri(
             reverse('accounts:verify_email', kwargs={'token': user.verification_token})
         )
@@ -168,7 +155,6 @@ class AuthView(View):
         )
     
     def _send_password_reset_email(self, user, request):
-        """إرسال بريد إعادة تعيين كلمة المرور"""
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         
@@ -194,7 +180,6 @@ class AuthView(View):
         )
     
     def _get_page_title(self, tab):
-        """الحصول على عنوان الصفحة"""
         titles = {
             'login': 'Sign In - WASLA',
             'signup': 'Sign Up - WASLA',
@@ -204,14 +189,9 @@ class AuthView(View):
 
 
 class ProfileView(LoginRequiredMixin, View):
-    """
-    View موحد للملف الشخصي - يجمع Profile, Edit, Settings, Security
-    """
     template_name = 'accounts/profile.html'
     
     def get(self, request, username=None):
-        """عرض الملف الشخصي"""
-        # الحصول على المستخدم
         if username:
             profile_user = get_object_or_404(User, username=username)
         else:
@@ -225,7 +205,7 @@ class ProfileView(LoginRequiredMixin, View):
             'stats': self._get_user_stats(profile_user),
         }
         
-        # إضافة النماذج إذا كان الملف الشخصي خاص بالمستخدم
+        
         if context['is_own_profile']:
             context['profile_form'] = UserProfileForm(instance=profile_user)
             context['settings_form'] = AccountSettingsForm(instance=profile_user)
@@ -235,7 +215,6 @@ class ProfileView(LoginRequiredMixin, View):
     
     @require_http_methods(["POST"])
     def post(self, request, username=None):
-        """معالجة تحديثات الملف الشخصي"""
         if username and username != request.user.username:
             messages.error(request, 'You can only edit your own profile.')
             return redirect('accounts:profile')
@@ -270,15 +249,12 @@ class ProfileView(LoginRequiredMixin, View):
         return redirect('accounts:profile')
     
     def _handle_settings_update(self, request):
-        """معالجة تحديث الإعدادات"""
         form = AccountSettingsForm(request.POST, instance=request.user)
         
         if form.is_valid():
-            # التحقق من تغيير البريد الإلكتروني
             if 'email' in form.changed_data:
                 form.instance.is_verified = False
                 form.instance.generate_new_verification_token()
-                # إرسال بريد تحقق جديد
                 AuthView()._send_verification_email(form.instance, request)
                 messages.warning(request, 'Please verify your new email address.')
             
@@ -290,38 +266,35 @@ class ProfileView(LoginRequiredMixin, View):
         return redirect('accounts:profile')
     
     def _handle_password_change(self, request):
-        """معالجة تغيير كلمة المرور"""
         old_password = request.POST.get('old_password')
         new_password1 = request.POST.get('new_password1')
         new_password2 = request.POST.get('new_password2')
-        
-        # التحقق من كلمة المرور القديمة
+
         if not request.user.check_password(old_password):
             messages.error(request, 'Current password is incorrect.')
             return redirect('accounts:profile')
         
-        # التحقق من تطابق كلمات المرور الجديدة
         if new_password1 != new_password2:
             messages.error(request, 'New passwords do not match.')
             return redirect('accounts:profile')
         
-        # التحقق من قوة كلمة المرور
+        
         if len(new_password1) < 8:
             messages.error(request, 'Password must be at least 8 characters.')
             return redirect('accounts:profile')
         
-        # تغيير كلمة المرور
+        
         request.user.set_password(new_password1)
         request.user.save()
         
-        # إعادة تسجيل الدخول
+        
         login(request, request.user)
         messages.success(request, 'Password changed successfully!')
         
         return redirect('accounts:profile')
     
     def _handle_account_deletion(self, request):
-        """معالجة حذف الحساب"""
+        
         form = DeleteAccountForm(user=request.user, data=request.POST)
         
         if form.is_valid():
@@ -336,13 +309,13 @@ class ProfileView(LoginRequiredMixin, View):
         return redirect('accounts:profile')
     
     def _get_participations(self, user):
-        """الحصول على آخر المشاركات"""
+        
         return user.participations.select_related(
             'hackathon', 'team'
         ).order_by('-registered_at')[:5]
     
     def _get_user_stats(self, user):
-        """الحصول على إحصائيات المستخدم"""
+        
         return {
             'participations': user.participation_count,
             'organized': user.organized_count,
@@ -352,14 +325,14 @@ class ProfileView(LoginRequiredMixin, View):
 
 @login_required
 def logout_view(request):
-    """تسجيل الخروج"""
+    
     logout(request)
     messages.info(request, 'You have been logged out successfully.')
     return redirect('core:home')
 
 
 def verify_email(request, token):
-    """التحقق من البريد الإلكتروني"""
+    
     try:
         user = User.objects.get(verification_token=token)
         
@@ -385,7 +358,6 @@ def verify_email(request, token):
 
 @login_required
 def resend_verification(request):
-    """إعادة إرسال بريد التحقق"""
     if request.user.is_verified:
         messages.info(request, 'Your email is already verified.')
         return redirect('hackathons:dashboard')
@@ -405,7 +377,6 @@ def password_reset(request):
 
 
 def password_reset_confirm(request, uidb64, token):
-    """تأكيد إعادة تعيين كلمة المرور"""
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
@@ -446,12 +417,10 @@ def password_reset_confirm(request, uidb64, token):
     })
 
 
-# === AJAX Views ===
 
 @login_required
 @require_http_methods(["GET"])
 def check_username(request):
-    """التحقق من توفر اسم المستخدم"""
     username = request.GET.get('username', '')
     
     if username:
@@ -473,7 +442,7 @@ def check_username(request):
 @login_required
 @require_http_methods(["GET"])
 def check_email(request):
-    """التحقق من توفر البريد الإلكتروني"""
+    
     email = request.GET.get('email', '')
     
     if email:

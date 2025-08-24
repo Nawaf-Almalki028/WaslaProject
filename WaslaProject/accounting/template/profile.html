@@ -6,15 +6,13 @@
 {% block content %}
 <div class="container py-5">
     <div class="row">
-        <!-- Sidebar -->
         <div class="col-lg-3 mb-4">
             <div class="card glass-card">
                 <div class="card-body text-center">
-                    <!-- Profile Image -->
                     <div class="position-relative d-inline-block mb-3">
                         {% if profile_user.profile_image %}
                             <img src="{{ profile_user.profile_image.url }}" 
-                                 id="profile-img"
+                                 id="profile-img" alt="profile"
                                  class="rounded-circle" 
                                  style="width: 150px; height: 150px; object-fit: cover;">
                         {% else %}
@@ -99,7 +97,7 @@
                         </div>
                     </div>
 
-                    <!-- Recent Activity -->
+                    
                     <div class="card glass-card">
                         <div class="card-header bg-transparent">
                             <h5 class="mb-0">Recent Hackathons</h5>
@@ -123,7 +121,6 @@
                 </div>
 
                 {% if is_own_profile %}
-                <!-- Edit Profile Tab -->
                 <div class="tab-pane fade" id="edit">
                     <div class="card glass-card">
                         <div class="card-body">
@@ -166,8 +163,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Settings Tab -->
                 <div class="tab-pane fade" id="settings">
                     <div class="card glass-card">
                         <div class="card-body">
@@ -210,8 +205,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Security Tab -->
                 <div class="tab-pane fade" id="security">
                     <div class="card glass-card">
                         <div class="card-body">
@@ -255,8 +248,6 @@
         </div>
     </div>
 </div>
-
-<!-- Delete Account Modal -->
 {% if is_own_profile %}
 <div class="modal fade" id="deleteModal" tabindex="-1">
     <div class="modal-dialog">

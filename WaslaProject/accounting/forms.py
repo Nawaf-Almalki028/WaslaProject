@@ -58,12 +58,12 @@ class LoginForm(forms.Form):
 
 
 class UserProfileForm(forms.ModelForm):
-    first_name = forms.CharField(required=False, max_length=150)
-    last_name = forms.CharField(required=False, max_length=150)
-    bio = forms.CharField(required=False, widget=forms.Textarea, max_length=500)
-    phone_number = forms.CharField(required=False, max_length=20)
+    first_name = forms.CharField(max_length=150)
+    last_name = forms.CharField(max_length=150)
+    bio = forms.CharField(widget=forms.Textarea, max_length=500)
+    phone_number = forms.CharField(max_length=20)
     profile_image = forms.ImageField(required=False)
-    company_name = forms.CharField(required=False, max_length=255)
+    company_name = forms.CharField(max_length=255)
     company_website = forms.URLField(required=False)
     email_notifications = forms.BooleanField(required=False)
 

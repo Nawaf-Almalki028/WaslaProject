@@ -1,0 +1,158 @@
+:root{
+      --bg-dark:#0b1e30;
+      --bg-mid:#132234;
+      --bg-light:#0f2c3f;
+      --text:#e9f1f7;
+      --accent:#00c2db;
+    }
+
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% 25%, rgba(0,186,199,.10) 0%, rgba(0,186,199,0) 60%),
+        radial-gradient(900px 500px at 85% 90%, rgba(0,102,204,.12) 0%, rgba(0,102,204,0) 60%),
+        linear-gradient(135deg,var(--bg-dark) 0%, var(--bg-mid) 35%, var(--bg-light) 65%, var(--bg-dark) 100%);
+      background-attachment:fixed;
+      background-size:cover;
+      background-position:center;
+      /* background-image: url("C:/Users/hp/Desktop/Capston/Rectangle 345-1.png"); */
+    }
+
+    /* Navbar (لو حاب تستخدمه لاحقاً) */
+    .navbar{
+      background:transparent!important;
+      padding-block:1rem;
+    }
+    .navbar-brand img{ height:50px }
+    .navbar-nav{ gap:1rem }
+    .nav-link{
+      color:var(--text)!important;
+      font-weight:600;
+      padding:.25rem .5rem;
+      opacity:.92;
+    }
+    .nav-link:hover{ opacity:1 }
+    .nav-link.active{
+      color:var(--accent)!important;
+      border-bottom:3px solid var(--accent);
+      border-radius:1px;
+    }
+
+    /* Buttons */
+    .btn-ghost{
+      border:2px solid var(--text);
+      color:var(--text);
+      background:transparent;
+      border-radius:999px;
+      padding:.55rem 1.1rem;
+      font-weight:600;
+    }
+    .btn-ghost:hover{ filter:brightness(1.08) }
+
+    .btn-outline-cyan{
+      border:2px solid var(--accent);
+      color:var(--accent);
+      background:transparent;
+      border-radius:999px;
+      padding:.55rem 1.1rem;
+      font-weight:600;
+    }
+    .btn-outline-cyan:hover{ background:rgba(0,194,219,.08) }
+
+    /* Hero (احتياط لو استخدمته) */
+    .hero{
+      text-align:center;
+      padding:7rem 1rem 4rem;
+      max-width:960px;
+      margin:0 auto;
+    }
+    .hero h1{
+      font-size:clamp(2rem,4vw + 1rem,3.5rem);
+      font-weight:800;
+      line-height:1.15;
+      color:#fff;
+      margin-bottom:1rem;
+    }
+    .hero p{
+      max-width:720px;
+      margin:0 auto 1.5rem;
+      opacity:.9;
+    }
+
+    /* Toggler (Bootstrap) */
+    .navbar-dark .navbar-toggler{ border-color:rgba(255,255,255,.25) }
+    .navbar-dark .navbar-toggler-icon{
+      background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(233,241,247,0.85)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+    }
+
+    /* تعديلك على ms-4 كما هو */
+    .ms-4{ margin-left:-2.5rem !important; }
+
+    /* ====== إضافات تكمل التصميم الحالي ====== */
+    /* Glass card المستخدمة في الصفحة */
+    .glass-card{
+      background:linear-gradient(180deg, rgba(19,34,52,.55), rgba(15,44,63,.45));
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    /* لون سماوي للنص */
+    .text-cyan{ color:var(--accent)!important; }
+
+    /* تحسين الحقول لتناسب الخلفية الداكنة */
+    .form-control,
+    .input-group-text{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.15);
+      color:var(--text);
+    }
+    .form-control::placeholder{ color:rgba(233,241,247,.65) }
+    .form-control:focus{
+      background:rgba(255,255,255,.09);
+      color:var(--text);
+      border-color:rgba(0,194,219,.5);
+      box-shadow:0 0 0 .25rem rgba(0,194,219,.15);
+    }
+
+    .nav-pills .nav-link{
+      color:var(--text);
+      background:transparent;
+      border:1px solid transparent;
+      border-radius:999px;
+    }
+    .nav-pills .nav-link.active{
+      color:var(--bg-dark);
+      background:var(--accent);
+      border-color:var(--accent);
+    }
+
+    .btn-primary{
+      background:var(--accent);
+      border-color:var(--accent);
+      color:#06212a;
+      font-weight:700;
+    }
+    .btn-primary:hover{
+      filter:brightness(1.05);
+      background:var(--accent);
+      border-color:var(--accent);
+    }
+
+    .form-check-input{
+      background-color:rgba(255,255,255,.06);
+      border-color:rgba(255,255,255,.25);
+    }
+    .form-check-input:checked{
+      background-color:var(--accent);
+      border-color:var(--accent);
+    }
+
+    .text-muted{ color:rgba(233,241,247,.7)!important }
