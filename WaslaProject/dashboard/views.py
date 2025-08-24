@@ -39,3 +39,7 @@ def dashboard_users_view(request:HttpRequest):
 
 def dashboard_settings_view(request:HttpRequest):
     return render(request, 'settings.html')
+
+
+def dashboard_ai_feature_view(request:HttpRequest, hackathon_id):
+    return render(request, 'ai_feature.html')

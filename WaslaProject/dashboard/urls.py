@@ -15,5 +15,5 @@ urlpatterns = [
     path('admins/', views.dashboard_admins_view, name="dashboard_admins_view"),
     path('users/', views.dashboard_users_view, name="dashboard_users_view"),
     path('settings/', views.dashboard_settings_view, name="dashboard_settings_view"),
-
+    path('ai_feature/<hackathon_id>', views.dashboard_ai_feature_view, name="dashboard_ai_feature_view"),
 ]
