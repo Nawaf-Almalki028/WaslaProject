@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-
 class Organization(models.Model):
     name = models.CharField(max_length=100)
     logo = models.ImageField(upload_to="logos/",default='logos/default.jpg')
@@ -20,7 +19,7 @@ class HackathonStatusChoices(models.TextChoices):
 class Hackathon(models.Model):
     title = models.CharField(max_length=100)
     location = models.URLField()
-    location = models.TextField()
+    logo = models.ImageField(upload_to="hackathons_logos/",default='hackathons_logos/default.jpg')
     start_date = models.DateField(auto_now_add=True)
     end_date = models.DateField(auto_now_add=True)
     max_team_size = models.IntegerField()
@@ -86,6 +85,7 @@ class Profile(models.Model):
     github = models.URLField()
     linedin = models.URLField()
     skills = models.TextField()
+    role = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     team = models.ManyToManyField(Team, related_name="user_teams")
     def __str__(self):
