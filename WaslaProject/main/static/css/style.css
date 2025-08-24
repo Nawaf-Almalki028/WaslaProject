@@ -1,0 +1,98 @@
+:root{
+      --bg-dark:#0b1e30;
+      --bg-mid:#132234;
+      --bg-light:#0f2c3f;
+      --text:#e9f1f7;
+      --accent:#00c2db;
+}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+
+body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% 25%, rgba(0,186,199,.10) 0%, rgba(0,186,199,0) 60%),
+        radial-gradient(900px 500px at 85% 90%, rgba(0,102,204,.12) 0%, rgba(0,102,204,0) 60%),
+        linear-gradient(135deg,var(--bg-dark) 0%, var(--bg-mid) 35%, var(--bg-light) 65%, var(--bg-dark) 100%);
+      background-attachment:fixed;
+      background-size: cover;
+  background-position: center;
+  
+  /* background-image: url("C:/Users/hp/Desktop/Capston/Rectangle 345-1.png"); */
+}
+
+.navbar{
+      background:transparent!important;
+      padding-block:1rem;
+}
+.navbar-brand img{height:50px}
+.navbar-nav{gap:1rem}
+
+.nav-link{
+      color:var(--text)!important;
+      font-weight:600;
+      padding:.25rem .5rem;
+      opacity:.92;
+}
+
+.nav-link:hover{opacity:1}
+.nav-link.active{
+      color:var(--accent)!important;
+      border-bottom:3px solid var(--accent);
+      border: radius 1px;;
+}
+
+.btn-ghost{
+      border:2px solid var(--text);
+      color:var(--text);
+      background:transparent;
+      border-radius:999px;
+      padding:.55rem 1.1rem;
+      font-weight:600;
+}
+
+.btn-ghost:hover{filter:brightness(1.08)}
+.btn-outline-cyan{
+      border:2px solid var(--accent);
+      color:var(--accent);
+      background:transparent;
+      border-radius:999px;
+      padding:.55rem 1.1rem;
+      font-weight:600;
+}
+
+.btn-outline-cyan:hover{background:rgba(0,194,219,.08)}
+.hero{
+      text-align:center;
+      padding:7rem 1rem 4rem;
+      max-width:960px;
+      margin:0 auto;
+}
+
+.hero h1{
+      font-size:clamp(2rem,4vw + 1rem,3.5rem);
+      font-weight:800;
+      line-height:1.15;
+      color:#fff;
+      margin-bottom:1rem;
+    }
+    
+.hero p{
+      max-width:720px;
+      margin:0 auto 1.5rem;
+      opacity:.9;
+}
+    .navbar-dark .navbar-toggler{
+      border-color:rgba(255,255,255,.25)
+}
+
+    .navbar-dark .navbar-toggler-icon{
+      background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(233,241,247,0.85)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+}
+.ms-4
+
+ {
+    margin-left: -2.5rem !important;
+}
