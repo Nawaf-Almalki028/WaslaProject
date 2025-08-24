@@ -19,7 +19,7 @@ class HackathonStatusChoices(models.TextChoices):
 class Hackathon(models.Model):
     title = models.CharField(max_length=100)
     location = models.URLField()
-    location = models.TextField()
+    logo = models.ImageField(upload_to="hackathons_logos/",default='hackathons_logos/default.jpg')
     start_date = models.DateField(auto_now_add=True)
     end_date = models.DateField(auto_now_add=True)
     max_team_size = models.IntegerField()
